@@ -1,5 +1,6 @@
 // instantiate an express router to handle HTTP verbs
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
 // import mongoose Project model to use MongoDB collection methods to mutate our Database
 const Project = require('../models/Project');

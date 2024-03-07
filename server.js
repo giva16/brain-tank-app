@@ -27,7 +27,6 @@ dbConnect();
 
 // Link server to projects api router
 const projectsRouter = require('./routes/projects');
-const path = require('path');
 app.use('/api/projects', projectsRouter);
 
 // initialize server (server listening for HTTP requests at PORT)
