@@ -1,6 +1,9 @@
 // import mongoose to connect this module to the database
 const mongoose = require('mongoose');
 
+// throw an error if a required field is missing
+mongoose.set('strictQuery', true);
+
 // asynchronous function to connect to the database
 const dbConnect = async () => {
   try {
