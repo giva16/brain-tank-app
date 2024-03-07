@@ -1,3 +1,6 @@
+//to join path
+const path = require('path');
+
 // Dotenv allows us to acces variables in .env with process.env.{variable name}
 require('dotenv').config();
 const express = require('express');
@@ -5,6 +8,9 @@ const PORT = process.env.PORT || 3000;
 
 // create an express app
 const app = express();
+
+// express static folder at currentdir/public
+app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser middleware
 app.use(express.urlencoded({ extended: false }));
@@ -21,6 +27,7 @@ dbConnect();
 
 // Link server to projects api router
 const projectsRouter = require('./routes/projects');
+const path = require('path');
 app.use('/api/projects', projectsRouter);
 
 // initialize server (server listening for HTTP requests at PORT)
