@@ -18,8 +18,8 @@ router.get('/', async (req, res) => {
 
 // GET '/api/projects/{id}'
 router.get('/:id', async (req, res) => {
+  const id = req.params.id;
   try {
-    const id = req.params.id;
     const project = await Project.findById(id);
 
     if (!project) {
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Something went wrong' });
+    res.status(500).json({ success: false, message: 'Something went wrong.' });
   }
 });
 
@@ -56,8 +56,31 @@ router.post('/', async (req, res) => {
 });
 
 // PUT '/api/projects/{:id}'
-router.put('/', (req, res) => {
-  res.json({ success: true, message: 'Succesful PUT Request' });
+router.put('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    // get the project, update the fields, and return the updated version
+    const project = await Project.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          title: req.body.title,
+          text: req.body.text,
+          tags: req.body.tags,
+          update: req.body.update,
+          githubURL: req.body.githubURL,
+          liveURL: req.body.liveURL,
+          completed: req.body.completed,
+        },
+      },
+      { new: true }
+    );
+
+    res.json({ success: true, data: project });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Something went wrong.' });
+  }
 });
 
 // DELETE '/api/projects/{:id}'
