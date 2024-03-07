@@ -7,23 +7,23 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, '../public'),
     },
     port: 3000,
     open: true,
     hot: true,
     compress: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.css$/, 
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.js$/,
@@ -31,18 +31,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
-    ]
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack App',
       filename: 'index.html',
-      template: './src/index.html'
+      template: './src/index.html',
     }),
-    new MiniCssExtractPlugin()
-  ]
-}
+    new MiniCssExtractPlugin(),
+  ],
+};
