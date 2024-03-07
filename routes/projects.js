@@ -84,9 +84,17 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE '/api/projects/{:id}'
-// GET '/api/projects'
-router.delete('/', (req, res) => {
-  res.json({ success: true, message: 'Succesful GET Request' });
+router.delete('/:id', async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    // get the project by id and delete it
+    await Project.findByIdAndDelete(id);
+
+    res.json({ success: true, data: {} });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Something went wrong.' });
+  }
 });
 
 module.exports = router;
