@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET '/api/projects/{id}'
+// Get a single project
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -32,6 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST '/api/projects'
+// add a project to the database
 router.post('/', async (req, res) => {
   // create an idea document based on the model
   const project = new Project({
@@ -47,8 +49,8 @@ router.post('/', async (req, res) => {
 
   try {
     // save the idea document into the database
-    await project.save();
-    res.json({ success: true, data: project });
+    const savedProject = await project.save();
+    res.json({ success: true, data: savedProject });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: 'Something went wrong.' });
@@ -56,12 +58,13 @@ router.post('/', async (req, res) => {
 });
 
 // PUT '/api/projects/{:id}'
+// update a project
 router.put('/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
     // get the project, update the fields, and return the updated version
-    const project = await Project.findByIdAndUpdate(
+    const updatedProject = await Project.findByIdAndUpdate(
       id,
       {
         $set: {
@@ -77,7 +80,7 @@ router.put('/:id', async (req, res) => {
       { new: true }
     );
 
-    res.json({ success: true, data: project });
+    res.json({ success: true, data: updatedProject });
   } catch (error) {
     res.status(500).json({ success: false, error: 'Something went wrong.' });
   }
