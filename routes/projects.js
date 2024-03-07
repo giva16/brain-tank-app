@@ -5,13 +5,28 @@ const router = require('express').Router();
 const Project = require('../models/Project');
 
 // GET '/api/projects'
-router.get('/', (req, res) => {
-  res.json({ success: true, message: 'Succesful GET Request' });
+// get all of the project documents within the collection
+router.get('/', async (req, res) => {
+  try {
+    const projects = await Project.find();
+    res.json({ success: true, data: projects });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Something went wrong' });
+  }
 });
 
 // GET '/api/projects/{id}'
-router.get('/:id', (req, res) => {
-  res.json({ success: true, message: 'Succesful GET Request' });
+router.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const project = await Project.findById(id);
+
+    if (!project) {
+      res.status(404).json({ success: true, message: `No project with ID: ${id} found` });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Something went wrong' });
+  }
 });
 
 // POST '/api/projects'
