@@ -15,11 +15,6 @@ app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Project Ideas API' });
 });
 
-// initialize server (server listening for HTTP requests at PORT)
-app.listen(PORT, (req, res) => {
-  console.log(`Server listening at port ${PORT}`);
-});
-
 // connect to our database
 const dbConnect = require('./config/db');
 dbConnect();
@@ -27,3 +22,8 @@ dbConnect();
 // Link server to projects api router
 const projectsRouter = require('./routes/projects');
 app.use('/api/projects', projectsRouter);
+
+// initialize server (server listening for HTTP requests at PORT)
+app.listen(PORT, (req, res) => {
+  console.log(`Server listening at port ${PORT}`);
+});
