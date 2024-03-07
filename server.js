@@ -20,6 +20,10 @@ app.listen(PORT, (req, res) => {
   console.log(`Server listening at port ${PORT}`);
 });
 
+// connect to our database
+const dbConnect = require('./config/db');
+dbConnect();
+
 // Link server to projects api router
 const projectsRouter = require('./routes/projects');
 app.use('/api/projects', projectsRouter);
